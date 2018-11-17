@@ -617,9 +617,13 @@ $dataModel = new OpCacheDataModel();
 
         function change() {
             // Filter out any zero values to see if there is anything left
-            var remove_zero_values = dataset[this.value].filter(function(value) {
-                return value > 0;
-            });
+            if (dataset[this.value] !== undefined) {
+                var remove_zero_values = dataset[this.value].filter(function(value) {
+                    return value > 0;
+                });
+            } else {
+                var remove_zero_values = [];
+            }
 
             // Skip if the value is undefined for some reason
             if (typeof dataset[this.value] !== 'undefined' && remove_zero_values.length > 0) {
