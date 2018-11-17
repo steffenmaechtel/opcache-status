@@ -493,6 +493,7 @@ $dataModel = new OpCacheDataModel();
 
 <body>
     <div id="container">
+        <br><a href="opcache.php">Refresh</a>
         <h1><?php echo $dataModel->getPageTitle(); ?></h1>
 
         <div class="tabs">
