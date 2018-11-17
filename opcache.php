@@ -109,10 +109,24 @@ class OpCacheDataModel
         asort($dirs);
 
         $basename = '';
-        while (true) {
-            if (count($this->_d3Scripts) !=1) break;
-            $basename .= DIRECTORY_SEPARATOR . key($this->_d3Scripts);
-            $this->_d3Scripts = reset($this->_d3Scripts);
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $first = true;
+            while (true) {
+                if (count($this->_d3Scripts) !=1) break;
+                if ($first) {
+                    $basename .= key($this->_d3Scripts);
+                    $first = false;
+                } else {
+                    $basename .= '/' . key($this->_d3Scripts);
+                }
+                $this->_d3Scripts = reset($this->_d3Scripts);
+            }
+        } else {
+            while (true) {
+                if (count($this->_d3Scripts) !=1) break;
+                $basename .= DIRECTORY_SEPARATOR . key($this->_d3Scripts);
+                $this->_d3Scripts = reset($this->_d3Scripts);
+            }
         }
 
         $this->_d3Scripts = $this->_processPartition($this->_d3Scripts, $basename);
