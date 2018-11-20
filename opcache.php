@@ -7,6 +7,10 @@ if (!extension_loaded('Zend OPcache')) {
     require 'data-sample.php';
 }
 
+if (isset($_GET['reset']) && $_GET['reset']) {
+    opcache_reset();
+}
+
 class OpCacheDataModel
 {
     private $_configuration;
@@ -493,7 +497,7 @@ $dataModel = new OpCacheDataModel();
 
 <body>
     <div id="container">
-        <br><a href="opcache.php">Refresh</a>
+        <br><a href="opcache.php">Refresh</a> | <a href="opcache.php?reset=1">Clear</a>
         <h1><?php echo $dataModel->getPageTitle(); ?></h1>
 
         <div class="tabs">
